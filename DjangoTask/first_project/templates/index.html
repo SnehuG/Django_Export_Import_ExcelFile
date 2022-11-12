@@ -1,0 +1,53 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h3 class="text-danger text-center">Dashboard</h3>
+            </div><hr/>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 mt-5">
+                <h4>File Upload</h4><hr/>
+                <form method="POST" enctype="multipart/form-data" action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Please Choose File</label>
+                        <input class="form-control" type="file" id="formFile" name="ufile" required>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success" type="submit" onclick="move()">Submit</button>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar" id="progress" role="progressbar" aria-valuenow="0%" aria-valuemin="0" aria-valuemax="100">0%</div>
+                      </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <script>
+        function move() {
+          var elem = document.getElementById("progress");   
+          var width = 0;
+          var id = setInterval(frame, 10);
+          function frame() {
+            if (width >= 100) {
+              clearInterval(id);
+            } else {
+              width++; 
+              elem.style.width = width + '%'; 
+              elem.innerHTML = width * 1  + '%';
+            }
+          }
+        }
+        </script>
+</body>
+</html>
